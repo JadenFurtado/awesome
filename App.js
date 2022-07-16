@@ -26,6 +26,8 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+import {initialize,startDiscoveringPeers} from 'react-native-wifi-p2p';
+
 const Section = ({children, title}): Node => {
   const isDarkMode = useColorScheme() === 'dark';
   return (
@@ -54,8 +56,14 @@ const Section = ({children, title}): Node => {
 
 const App: () => Node = () => {
   const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
+  initialize()
+    .then((isInitializedSuccessfully) => console.log('isInitializedSuccessfully: ', isInitializedSuccessfully))
+    .catch((err) => console.log('initialization was failed. Err: ', err));
+  /*startDiscoveringPeers()
+    .then(() => console.log('Starting of discovering was successful'))
+    .catch(err => console.error(`Something is gone wrong. Maybe your WiFi is disabled? Error details: ${err}`));
+  */
+    const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
